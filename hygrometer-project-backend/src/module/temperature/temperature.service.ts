@@ -29,4 +29,16 @@ export class TemperatureService {
         });
     }
 
+    async removeOne(id: string): Promise<void> {
+        await this.temperatureRepository.delete(id);
+    }
+    
+    async removeAll(): Promise<void> {
+        const result = await this.temperatureRepository.find();
+
+        result.forEach((entry) => {
+            this.temperatureRepository.delete(entry.id);
+        });
+    }
+
 }

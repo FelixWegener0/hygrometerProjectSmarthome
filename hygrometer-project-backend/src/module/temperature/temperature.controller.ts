@@ -21,4 +21,16 @@ export class TemperatureController {
     async findLatest() {
         return await this.temperatureService.findLatest();
     }
+
+    @Post('/removeOne')
+    async removeOne(@Body() id: string) {
+        await this.temperatureService.removeOne(id);
+        return null;
+    }
+
+    @Get('/removeAll')
+    async removeAll() {
+        this.temperatureService.removeAll();
+        return null;
+    }
 }
