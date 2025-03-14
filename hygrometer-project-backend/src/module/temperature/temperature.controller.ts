@@ -18,8 +18,8 @@ export class TemperatureController {
     }
 
     @Post('/findByRoomAll')
-    async findByRoomAll(@Body() room: string) {
-        return await this.temperatureService.findAllbyRoom(room);
+    async findByRoomAll(@Body() body) {
+        return await this.temperatureService.findAllbyRoom(body.room);
     }
 
     @Get('/latest')
@@ -28,13 +28,13 @@ export class TemperatureController {
     }
 
     @Post('/findByRoomLatest')
-    async findLatestByRoom(@Body() room: string) {
-        return await this.temperatureService.findLatestByRoom(room);
+    async findLatestByRoom(@Body() body) {
+        return await this.temperatureService.findLatestByRoom(body.room);
     }
 
     @Post('/removeOne')
-    async removeOne(@Body() id: string) {
-        await this.temperatureService.removeOne(id);
+    async removeOne(@Body() body) {
+        await this.temperatureService.removeOne(body.id);
         return null;
     }
 
