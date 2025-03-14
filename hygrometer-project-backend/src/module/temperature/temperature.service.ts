@@ -29,6 +29,13 @@ export class TemperatureService {
         });
     }
 
+    async findLatestByRoom(room: string): Promise<TemperatureResponseDto | null> {
+        return await this.temperatureRepository.findOne({
+            where: { room: room },
+            order: { createdAt: 'DESC' }
+        });
+    }
+
     async removeOne(id: string): Promise<void> {
         await this.temperatureRepository.delete(id);
     }
