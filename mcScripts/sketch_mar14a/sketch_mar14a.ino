@@ -8,9 +8,11 @@
 const char *ssid = "";
 const char *password = "";
 const char *serverIp = "";
+
 WiFiClientSecure client;
 
-int pinDHT11 = 5;
+short minutesTimer = 5;
+byte pinDHT11 = 5;
 SimpleDHT11 dht11(pinDHT11);
 float temp;
 float humid;
@@ -91,5 +93,5 @@ void loop()
 
   sendPostRequest(temp, humid);
 
-  delay(5 * 60 * 1000);
+  delay(minutesTimer * 60 * 1000);
 }
