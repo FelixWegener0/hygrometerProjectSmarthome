@@ -16,4 +16,9 @@ export class TemperatureController {
     async create(@Request() req, @Body() createNew: TemperatureCreateDto) {
         return await this.temperatureService.create(createNew);
     }
+
+    @Get('/latest')
+    async findLatest() {
+        return await this.temperatureService.findLatest();
+    }
 }

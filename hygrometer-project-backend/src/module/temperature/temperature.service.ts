@@ -22,4 +22,11 @@ export class TemperatureService {
         return await this.temperatureRepository.save(newTemperatureData);
     }
 
+    async findLatest(): Promise<TemperatureResponseDto | null> {
+        return await this.temperatureRepository.findOne({
+            where: {},
+            order: { createdAt: 'DESC' }
+        });
+    }
+
 }
