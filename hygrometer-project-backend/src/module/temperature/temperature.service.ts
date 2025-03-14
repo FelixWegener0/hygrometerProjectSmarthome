@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Temperature } from "./entities/temperature.entity";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { LessThan, Repository } from "typeorm";
 import { TemperatureResponseDto } from "./dto/temperature-response.dto";
 import { TemperatureCreateDto } from "./dto/temperature-create.dto";
 
@@ -14,7 +14,10 @@ export class TemperatureService {
     ) {}
 
     async findAll(): Promise<TemperatureResponseDto[]> {
-        return await this.temperatureRepository.find();
+        return await this.temperatureRepository.find({
+            where: {},
+            order: { createdAt: 'DESC' }
+        });
     }
 
     async create(createDto: TemperatureCreateDto): Promise<TemperatureResponseDto> {
@@ -26,6 +29,12 @@ export class TemperatureService {
         return await this.temperatureRepository.findOne({
             where: {},
             order: { createdAt: 'DESC' }
+        });
+    }
+
+    async findAllbyRoom(room: string): Promise<TemperatureResponseDto[] | null> {
+        return await this.temperatureRepository.find({
+            where: { room: room }
         });
     }
 
@@ -45,6 +54,14 @@ export class TemperatureService {
 
         result.forEach((entry) => {
             this.temperatureRepository.delete(entry.id);
+        });
+    }
+
+    async removeByDate() {
+        const cutoffDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    
+        await this.temperatureRepository.delete({
+            createdAt: LessThan(cutoffDate),
         });
     }
 
