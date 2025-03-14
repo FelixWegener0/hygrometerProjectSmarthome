@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TemperatureModule } from './module/temperature/temperature.module';
+import { Temperature } from './module/temperature/entities/temperature.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { TemperatureModule } from './module/temperature/temperature.module';
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        entities: [Temperature],
         autoLoadEntities: true,
         synchronize: true
       }),

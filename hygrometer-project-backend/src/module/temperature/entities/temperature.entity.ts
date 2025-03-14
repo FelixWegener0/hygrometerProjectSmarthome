@@ -5,15 +5,15 @@ export class Temperature {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ nullable: false })
+    @Column()
     room: string;
 
-    @Column({ nullable: false })
+    @Column('double precision')
     humidity: number;
 
-    @Column({ nullable: false })
+    @Column('double precision')
     temperature: number;
 
-    @Column({ nullable: false })
+    @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 }
