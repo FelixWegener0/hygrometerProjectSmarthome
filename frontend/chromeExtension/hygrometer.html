@@ -1,8 +1,24 @@
 <html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
     <body>
         <h1>Hygrometer Ansicht</h1>
-        <h1 class="header1" id="header1"></h1>
+        <div style="display: flex; gap: 30px;">
+            <div style="width: 150px;">
+                <h2>Badezimmer</h2>
+                <h3 id="TemperatureBadezimmer"></h3>
+                <h3 id="HumidityBadezimmer"></h3>
+            </div>
+    
+            <div style="width: 150px;">
+                <h2>Schlafzimmer</h2>
+                <h3 id="TemperatureSchlafzimmer"></h3>
+                <h3 id="HumiditySchlafzimmer"></h3>
+            </div>
+        </div>
 
+        <button id="getDataButton">reload data</button>
         <script src="./script.js"></script>
     </body>
 </html>

@@ -34,7 +34,8 @@ export class TemperatureService {
 
     async findAllbyRoom(room: string): Promise<TemperatureResponseDto[] | null> {
         return await this.temperatureRepository.find({
-            where: { room: room }
+            where: { room: room },
+            order: { createdAt: 'DESC' }
         });
     }
 
