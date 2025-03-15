@@ -2,10 +2,12 @@ const temperatureBadezimmer = document.getElementById('TemperatureBadezimmer');
 const humidityBadezimmer = document.getElementById('HumidityBadezimmer');
 const themperatureSchlafzimmer = document.getElementById('TemperatureSchlafzimmer');
 const humiditySchlafzimmer = document.getElementById('HumiditySchlafzimmer');
+
+const addBackendToken = document.getElementById('addBackendToken');
 const getDataButton = document.getElementById('getDataButton');
 
 const minuteTimer = 3;
-const token = localStorage.getItem('token') || '';
+let token = localStorage.getItem('token') || '';
 
 async function getLatestRoomData(room) {
     const response = await fetch('https://felixwegener.dev/api/temp/findByRoomLatest', {
@@ -31,5 +33,14 @@ async function setData() {
     humiditySchlafzimmer.innerHTML = `Humidity:${dataSchlafzimmer.humidity}%`;
 }
 
+function addNewBackendToken() {
+    const value = prompt("token");
+
+    token = value;
+    setData();
+    localStorage.setItem('token', value);
+}
+
 setData();
 getDataButton.addEventListener('click', () => setData());
+addBackendToken.addEventListener('click', () => addNewBackendToken());
