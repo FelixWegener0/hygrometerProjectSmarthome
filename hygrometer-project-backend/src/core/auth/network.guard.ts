@@ -8,7 +8,7 @@ export class NetworkGuard implements CanActivate {
         
         const request = context.switchToHttp().getRequest();
 
-        console.log(request.connection.remoteAddress)
+        console.log(request.ip)
 
         return true;
     }
