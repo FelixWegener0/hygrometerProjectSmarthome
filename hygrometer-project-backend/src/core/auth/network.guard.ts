@@ -5,24 +5,23 @@ import { Observable } from "rxjs";
 export class NetworkGuard implements CanActivate {
 
     private getClientIp(request: any): string {
-        // Prüfe zuerst den X-Forwarded-For Header
         const forwarded = request.headers['x-forwarded-for'];
         if (forwarded) {
           return Array.isArray(forwarded) ? forwarded[0] : forwarded.split(',')[0].trim();
         }
-        // Fallback auf direkte Verbindung
         return request.connection.remoteAddress || request.ip;
     }
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-        
         const request = context.switchToHttp().getRequest();
+        const ip = this.getClientIp(request);
 
-        console.log(this.getClientIp(request))
-
-        
-
-        return true;
+        if (ip === process.env.ALLOWED_NETWORK_IP) {
+            return true;
+        } else {
+            console.log(`try to post data with ip: ${ip} was rejected`);
+            return false;
+        }
     }
     
 }
