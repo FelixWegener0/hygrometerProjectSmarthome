@@ -66,4 +66,8 @@ export class TemperatureService {
         });
     }
 
+    async getAmountOfEntry(): Promise<number> {
+        return (await this.temperatureRepository.find()).length;
+    }
+
 }

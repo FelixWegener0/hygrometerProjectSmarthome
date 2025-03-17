@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common"
 import { TemperatureService } from "./temperature.service";
 import { TemperatureCreateDto } from "./dto/temperature-create.dto";
 import { AuthGuard } from "src/core/auth/auth.guard";
+import { NetworkGuard } from "src/core/auth/network.guard";
 
 @Controller('temp')
 export class TemperatureController {
@@ -14,6 +15,7 @@ export class TemperatureController {
         return await this.temperatureService.findAll();
     }
 
+    @UseGuards(NetworkGuard)
     @Post()
     async create(@Body() createNew: TemperatureCreateDto) {
         return await this.temperatureService.create(createNew);
@@ -49,5 +51,11 @@ export class TemperatureController {
     async removeAll() {
         this.temperatureService.removeAll();
         return null;
+    }
+
+    @UseGuards(AuthGuard)
+    @Get('/amount')
+    async getAmountOfEntry() {
+        return await this.temperatureService.getAmountOfEntry();
     }
 }
