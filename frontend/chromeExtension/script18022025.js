@@ -8,6 +8,7 @@ const timeBadezimmer = document.getElementById('timeBadezimmer');
 const timeSchlafzimmer = document.getElementById('timeSchlafzimmer');
 const timeWohnzimmer = document.getElementById('timeWohnzimmer');
 const totalServerEntrys = document.getElementById('totalServerEntrys');
+const lastDataPull = document.getElementById('lastDataPull');
 
 const addBackendToken = document.getElementById('addBackendToken');
 const getDataButton = document.getElementById('getDataButton');
@@ -52,6 +53,7 @@ async function setData() {
     setInnerHtml(temperatureWohnzimmer, humidityWohnzimmer, timeWohnzimmer, await getLatestRoomData("wohnzimmer"));
 
     totalServerEntrys.innerHTML = `BD entyrs: ${await getTotalAmountOfDbEntrys()}`;
+    lastDataPull.innerHTML = `last data pull: ${formatDate(new Date())}`
 }
 
 function addNewBackendToken() {
