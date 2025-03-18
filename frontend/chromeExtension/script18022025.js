@@ -1,5 +1,5 @@
-const temperatureBadezimmer = document.getElementById('TemperatureBadezimmer');
-const humidityBadezimmer = document.getElementById('HumidityBadezimmer');
+const temperatureBathroom = document.getElementById('TemperatureBadezimmer');
+const humidityBathroom = document.getElementById('HumidityBadezimmer');
 const themperatureSchlafzimmer = document.getElementById('TemperatureSchlafzimmer');
 const humiditySchlafzimmer = document.getElementById('HumiditySchlafzimmer');
 const temperatureWohnzimmer = document.getElementById('TemperatureWohnzimmer');
@@ -48,11 +48,11 @@ function setInnerHtml(tempElement, humidelement, timeElement, data) {
 }
 
 async function setData() {
-    setInnerHtml(temperatureBadezimmer, humidityBadezimmer, timeBadezimmer, await getLatestRoomData("badezimmer"));
+    setInnerHtml(temperatureBathroom, humidityBathroom, timeBadezimmer, await getLatestRoomData("badezimmer"));
     setInnerHtml(themperatureSchlafzimmer, humiditySchlafzimmer, timeSchlafzimmer, await getLatestRoomData("schlafzimmer"));
     setInnerHtml(temperatureWohnzimmer, humidityWohnzimmer, timeWohnzimmer, await getLatestRoomData("wohnzimmer"));
 
-    totalServerEntrys.innerHTML = `BD entyrs: ${await getTotalAmountOfDbEntrys()}`;
+    totalServerEntrys.innerHTML = `BD entry's: ${await getTotalAmountOfDbEntrys()}`;
     lastDataPull.innerHTML = `last data pull: ${formatDate(new Date())}`
 }
 
