@@ -4,6 +4,9 @@ const themperatureSchlafzimmer = document.getElementById('TemperatureSchlafzimme
 const humiditySchlafzimmer = document.getElementById('HumiditySchlafzimmer');
 const temperatureWohnzimmer = document.getElementById('TemperatureWohnzimmer');
 const humidityWohnzimmer = document.getElementById('HumidityWohnzimmer');
+const timeBadezimmer = document.getElementById('timeBadezimmer');
+const timeSchlafzimmer = document.getElementById('timeSchlafzimmer');
+const timeWohnzimmer = document.getElementById('timeWohnzimmer');
 
 const addBackendToken = document.getElementById('addBackendToken');
 const getDataButton = document.getElementById('getDataButton');
@@ -24,19 +27,16 @@ async function getLatestRoomData(room) {
     return await response.json();
 }
 
+function setInnerHtml(tempElement, humidelement, timeElement, data) {
+    tempElement.innerHTML = `Temperature: ${data.temperature}°C`;
+    humidelement.innerHTML = `Humidity: ${data.humidity}%`;
+    timeElement.innerHTML = `created: ${formatDate(data.createdAt)}`;
+}
+
 async function setData() {
-    const dataBadezimmer = await getLatestRoomData("badezimmer");
-    const dataSchlafzimmer = await getLatestRoomData("schlafzimmer");
-    const dataWonzimmer = await getLatestRoomData("wohnzimmer");
-
-    temperatureBadezimmer.innerHTML = `Temperature: ${dataBadezimmer.temperature}°C`;
-    humidityBadezimmer.innerHTML = `Humidity: ${dataBadezimmer.humidity}%`;
-
-    themperatureSchlafzimmer.innerHTML = `Temperature: ${dataSchlafzimmer.temperature}°C`;
-    humiditySchlafzimmer.innerHTML = `Humidity: ${dataSchlafzimmer.humidity}%`;
-
-    temperatureWohnzimmer.innerHTML = `Temperature: ${dataWonzimmer.temperature}°C`;
-    humidityWohnzimmer.innerHTML = `Humidity: ${dataWonzimmer.humidity}%`;
+    setInnerHtml(temperatureBadezimmer, humidityBadezimmer, timeBadezimmer, await getLatestRoomData("badezimmer"));
+    setInnerHtml(themperatureSchlafzimmer, humiditySchlafzimmer, timeSchlafzimmer, await getLatestRoomData("schlafzimmer"));
+    setInnerHtml(temperatureWohnzimmer, humidityWohnzimmer, timeWohnzimmer, await getLatestRoomData("wohnzimmer"));
 }
 
 function addNewBackendToken() {
@@ -45,6 +45,24 @@ function addNewBackendToken() {
     token = value;
     setData();
     localStorage.setItem('token', value);
+}
+
+function format(value) {
+    if (value < 10) {
+        return `0${value}`;
+    } else {
+        return value;
+    }
+}
+
+function formatDate(valueString) {
+    let date = new Date(valueString);
+
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+
+    return `${format(hour)}:${format(minutes)}:${format(seconds)}`;
 }
 
 setData();
