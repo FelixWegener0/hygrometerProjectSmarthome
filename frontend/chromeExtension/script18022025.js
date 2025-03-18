@@ -7,6 +7,7 @@ const humidityWohnzimmer = document.getElementById('HumidityWohnzimmer');
 const timeBadezimmer = document.getElementById('timeBadezimmer');
 const timeSchlafzimmer = document.getElementById('timeSchlafzimmer');
 const timeWohnzimmer = document.getElementById('timeWohnzimmer');
+const totalServerEntrys = document.getElementById('totalServerEntrys');
 
 const addBackendToken = document.getElementById('addBackendToken');
 const getDataButton = document.getElementById('getDataButton');
@@ -27,6 +28,18 @@ async function getLatestRoomData(room) {
     return await response.json();
 }
 
+async function getTotalAmountOfDbEntrys() {
+    const response = await fetch('https://felixwegener.dev/api/temp/amount', {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'token': token,
+        },
+        method: 'GET',
+    });
+    return await response.json();
+}
+
 function setInnerHtml(tempElement, humidelement, timeElement, data) {
     tempElement.innerHTML = `Temperature: ${data.temperature}°C`;
     humidelement.innerHTML = `Humidity: ${data.humidity}%`;
@@ -37,6 +50,8 @@ async function setData() {
     setInnerHtml(temperatureBadezimmer, humidityBadezimmer, timeBadezimmer, await getLatestRoomData("badezimmer"));
     setInnerHtml(themperatureSchlafzimmer, humiditySchlafzimmer, timeSchlafzimmer, await getLatestRoomData("schlafzimmer"));
     setInnerHtml(temperatureWohnzimmer, humidityWohnzimmer, timeWohnzimmer, await getLatestRoomData("wohnzimmer"));
+
+    totalServerEntrys.innerHTML = `BD entyrs: ${await getTotalAmountOfDbEntrys()}`;
 }
 
 function addNewBackendToken() {
