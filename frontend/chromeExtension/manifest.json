@@ -3,10 +3,7 @@
     "description": "Base Level Extension",
     "version": "1.0",
     "manifest_version": 3,
-    "permissions": ["scripting", "alarms", "activeTab", "notifications"],
-    "background": {
-        "service_worker": "background.js"
-    },
+    "permissions": ["activeTab"],
     "action": {
       "default_popup": "index.html",
         "default_icon": "icon.png"
