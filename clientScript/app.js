@@ -3,9 +3,9 @@ const path = require('path');
 
 console.log('starting client application')
 
-const token = process.env.BACKEND_TOKEN || '6d22911e-a249-4a33-9d3a-d4be567cea3d';
+const token = process.env.BACKEND_TOKEN || '';
 const timeoutMinutes =  process.env.TIMEOUTMINUTES || 10;
-const url = process.env.SERVER_URL || 'https://felixwegener.dev/api/temp/findByRoomLatest';
+const url = process.env.SERVER_URL || '';
 
 function sendNotification(title, message) {
     notifier.notify({
