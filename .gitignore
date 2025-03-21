@@ -1,2 +1,3 @@
 /.idea
 /clientScript/Dockerfile
+/clientScript/node_modules
