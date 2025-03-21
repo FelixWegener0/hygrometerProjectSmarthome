@@ -1,4 +1,4 @@
-const token = "";
+const token = "6d22911e-a249-4a33-9d3a-d4be567cea3d";
 
 async function getLatestRoomData(room) {
     const response = await fetch('https://felixwegener.dev/api/temp/findByRoomLatest', {
@@ -28,16 +28,16 @@ async function checkApi() {
     for (const room of rooms) {
         let data = await getLatestRoomData(room);
         if (data.humidity > 60) {
-            showNotification(`Der Raum ${room} hat eine humidity von ${data.humidity}%`)
+            showNotification(`Der Raum ${room} hat eine humidity von ${data.humidity}%`);
         }
     }
 
 }
 
-chrome.alarms.create("Humidity Check", { periodInMinutes: 5 });
+chrome.alarms.create("HumidityCheck", { periodInMinutes: 5 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name === "Humidity Check") {
+    if (alarm.name === "HumidityCheck") {
         checkApi();
     }
 });

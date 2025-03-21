@@ -13,7 +13,8 @@ const lastDataPull = document.getElementById('lastDataPull');
 const addBackendToken = document.getElementById('addBackendToken');
 const getDataButton = document.getElementById('getDataButton');
 
-const minuteTimer = 3;
+const minuteTimer = 1;
+let count = 0;
 let token = localStorage.getItem('token') || '';
 
 async function getLatestRoomData(room) {
