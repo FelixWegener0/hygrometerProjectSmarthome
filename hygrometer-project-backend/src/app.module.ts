@@ -18,13 +18,14 @@ import { User } from './module/user/entities/user.entity';
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
-        entities: [Temperature],
+        entities: [Temperature, User],
         autoLoadEntities: true,
         synchronize: true
       }),
       inject: [],
     }),
     TemperatureModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],

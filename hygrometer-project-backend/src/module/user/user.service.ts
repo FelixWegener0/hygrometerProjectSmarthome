@@ -13,30 +13,20 @@ export class UserService {
         private userRepository: Repository<User>,
     ) {}
 
-    async create(createDto: UserCreateDto): Promise<string> {
-        const newUser = this.userRepository.create({...createDto, token: uuid()});
-        return (await this.userRepository.save(newUser)).token;
+    async create(createDto: UserCreateDto): Promise<void> {
+        this.userRepository.create(createDto);
     }
 
-    async getToken(name: string, password: string): Promise<string | null> {
-        const user = await  this.userRepository.findOne({
+    async getToken(name: string, password: string): Promise<string | undefined> {
+        const user = await this.userRepository.findOne({
             where: { name: name }
         });
 
         if (user?.password === password) {
-            return user.token;
+            return process.env.BACKEND_TOKEN;
         } else {
-            return null;
+            return undefined;
         }
-    }
-
-    async checkToken(token: string): Promise<boolean> {
-        const users = await this.userRepository.find();
-
-        users.forEach((user) => {
-            if (user.token === token) return true;
-        });
-        return false;
     }
 
 }
