@@ -8,6 +8,7 @@ console.log(`${new Date()} - Starting client application`);
 const token = process.env.BACKEND_TOKEN || '';
 const timeoutMinutes =  process.env.TIMEOUTMINUTES || 10;
 const url = process.env.SERVER_URL || '';
+const triggerHumid = process.env.TRIGGER_HUMIDITY || 60;
 
 function sendNotification(title, message) {
     console.log(`${new Date()} - Send notification with ${title} ; ${message}`);
@@ -51,8 +52,8 @@ async function check() {
     for(let i = 0; i < rooms.length; i++) {
         let data = await getLatestRoomData(rooms[i]);
 
-        if (data.humidity > 10) {
-            sendNotification('SmartHome Warnung', `Feuchtigkeit in Raum ${rooms[i]} liegt bei ${data.humidity}`)
+        if (data.humidity > triggerHumid) {
+            sendNotification('SmartHome Warnung', `Feuchtigkeit in Raum ${rooms[i]} liegt bei ${data.humidity}%`)
         }
     }
 }
